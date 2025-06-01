@@ -1,0 +1,25 @@
+CREATE TABLE users (
+    id UUID PRIMARY KEY,
+    telegram_id BIGINT UNIQUE NOT NULL,
+    username TEXT,
+    gold_coins INT DEFAULT 100,
+    level INT DEFAULT 1,
+    class TEXT DEFAULT 'warrior',
+    stats JSONB,
+    nsfw_enabled BOOLEAN DEFAULT false
+);
+
+CREATE TABLE items (
+    id UUID PRIMARY KEY,
+    name TEXT,
+    item_type TEXT,
+    price INT
+);
+
+CREATE TABLE user_items (
+    user_id UUID,
+    item_id UUID,
+    quantity INT DEFAULT 1,
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(item_id) REFERENCES items(id)
+);
