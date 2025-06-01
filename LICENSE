@@ -19,37 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
----
-
-## 🧩 4. `src/main.rs`
-
-This is the entry point of your application:
-
-```rust
-use teloxide::prelude::*;
-use teloxide::types::Message;
-use std::env;
-
-mod commands;
-mod models;
-
-#[tokio::main]
-async fn main() {
-    let bot = Bot::from_env().auto_send();
-
-    teloxide::repl(bot, |message: Message, bot: AutoSend<Bot>| async move {
-        match message.text() {
-            Some("/start") => commands::start(message, bot).await,
-            Some("/adventure") => commands::adventure(message, bot).await,
-            Some("/random_encounter") => commands::random_encounter(message, bot).await,
-            Some("/inspect") => commands::inspect(message, bot).await,
-            Some("/duel") => commands::duel(message, bot).await,
-            Some("/revive") => commands::revive(message, bot).await,
-            _ => (),
-        }
-    })
-    .await;
-}
-
